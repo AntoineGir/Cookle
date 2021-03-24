@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
+
+    This friendly message is coming from:
+    <h1>Recipe index</h1>
+    <h2>Le Plat du jour est :</h2>
+        <h3>{{ randomrecipe.title }}</h3>
+
+</div>
+
+
+<div class="container"> 
+    <div class="row"> 
+        {% for r in recipe %}
+            <div class="col">
+                <div class="card mt-5" style="width: 18rem;"> 
+                    <div class="card-body"> <h5 class="card-title">{{ r.title }}</h5> 
+                        <a href="{{ path('recipe_edit', { id: r.id }) }}" class="btn btn-primary">Modifer</a>
+                    </div> 
+                </div> 
+            </div> 
+    {% endfor %} 
+    </div> 
+</div>
+
+{% endblock %}
