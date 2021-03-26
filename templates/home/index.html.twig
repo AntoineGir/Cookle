@@ -24,8 +24,11 @@
         {% for r in recipe %}
             <div class="col">
                 <div class="card mt-5" style="width: 18rem;"> 
-                    <div class="card-body"> <h5 class="card-title">{{ r.title }}</h5> 
+                    <div class="card-body"> 
+                        <h5 class="card-title">{{ r.title }}</h5> 
+                        <h6 class="card-title">note : {{ r.calcAverageEval}}</h6> 
                         <a href="{{ path('recipe_edit', { id: r.id }) }}" class="btn btn-primary">Modifer</a>
+                        <a href="{{ path('recipe_eval', { id: r.id }) }}" class="btn btn-primary">Ajouter Evaluation</a>
                     </div> 
                 </div> 
             </div> 

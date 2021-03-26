@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Controller\EvaluationController;
 use App\Repository\RecipeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -205,7 +206,8 @@ class Recipe
 
     public function removeCookingHistory(CookingHistory $cookingHistory): self
     {
-        if ($this->cookingHistory->removeElement($cookingHistory)) {
+        if ($this->cookingHistory->removeElement($cookingHistory)) 
+        {
             // set the owning side to null (unless already changed)
             if ($cookingHistory->getRecipe() === $this) {
                 $cookingHistory->setRecipe(null);
@@ -213,5 +215,28 @@ class Recipe
         }
 
         return $this;
+    }
+
+    //faire la moyenne des évalutions pour une recette
+    public function calcAverageEval(): float
+    {
+        $comtpeur = 1;
+        $note = 0;
+        foreach ( $this->evaluation as $eval) 
+        {
+            $note = $note + $eval->getStar();
+            $comtpeur++;
+        }
+        
+        if ($comtpeur > 0)
+        {
+        $note = $note / $comtpeur;
+        }
+
+        else{
+            $note = -1;
+        }
+
+        return $note;
     }
 }
