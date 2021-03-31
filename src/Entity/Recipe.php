@@ -7,9 +7,14 @@ use App\Repository\RecipeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
+ * @ApiResource
  * @ORM\Entity(repositoryClass=RecipeRepository::class)
+ * @ApiFilter(SearchFilter::class, properties= {"id": "exact", "title": "partial"})
  */
 class Recipe
 {
@@ -220,12 +225,14 @@ class Recipe
     //faire la moyenne des évalutions pour une recette
     public function calcAverageEval(): float
     {
-        $comtpeur = 1;
+        $comtpeur = 0;
         $note = 0;
         foreach ( $this->evaluation as $eval) 
         {
+
             $note = $note + $eval->getStar();
             $comtpeur++;
+
         }
         
         if ($comtpeur > 0)

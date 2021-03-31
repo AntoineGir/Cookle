@@ -4,8 +4,10 @@ namespace App\Entity;
 
 use App\Repository\EvaluationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\apiResource;
 
 /**
+ * @ApiResource
  * @ORM\Entity(repositoryClass=EvaluationRepository::class)
  */
 class Evaluation

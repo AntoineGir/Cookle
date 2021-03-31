@@ -6,8 +6,10 @@ use App\Repository\CourseTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\apiResource;
 
 /**
+ * @ApiResource
  * @ORM\Entity(repositoryClass=CourseTypeRepository::class)
  */
 class CourseType
@@ -23,6 +25,11 @@ class CourseType
      * @ORM\OneToMany(targetEntity=Recipe::class, mappedBy="CourseType")
      */
     private $recipes;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
 
     public function __construct()
     {
@@ -60,6 +67,18 @@ class CourseType
                 $recipe->setCourseType(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }
